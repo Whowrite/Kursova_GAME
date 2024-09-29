@@ -5,35 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kursova_GAME"
         mc:Ignorable="d"
-        Title="MainWindow" Height="508.456" Width="471.519" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Focusable="False">
+        Title="MainWindow" Height="508.456" Width="475.332" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Focusable="False" Background="White" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Window.Resources>
 
     </Window.Resources>
     <Grid x:Name="Grid1" Margin="0,0,0,-1">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Black"/>
-                <GradientStop Color="White" Offset="1"/>
+                <GradientStop Color="Black" Offset="0.138"/>
+                <GradientStop Color="#FF0E222E" Offset="0.389"/>
+                <GradientStop Color="#FF7FCFFD" Offset="0.916"/>
+                <GradientStop Color="#FF215A7C" Offset="0.569"/>
+                <GradientStop Color="#FF357CA8" Offset="0.682"/>
+                <GradientStop Color="#FF4BA1D4" Offset="0.799"/>
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="35*"/>
-            <ColumnDefinition Width="121*"/>
-            <ColumnDefinition Width="256*"/>
-            <ColumnDefinition Width="44*"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="111*"/>
+            <ColumnDefinition Width="258*"/>
+            <ColumnDefinition Width="42*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="buttonGrid" HorizontalAlignment="Left" Height="350" Margin="4,48,0,0" VerticalAlignment="Top" Width="350" Grid.ColumnSpan="2" Grid.Column="2" d:IsHidden="True"/>
-        <Button x:Name="Restart_Game" Content="Заново" Grid.Column="2" HorizontalAlignment="Left" Height="35" Margin="4,421,0,0" VerticalAlignment="Top" Width="98" Click="Restart_Game_Click"/>
-        <Button x:Name="New_Game" Content="Нова гра" Grid.Column="3" HorizontalAlignment="Left" Height="35" Margin="138,421,0,0" VerticalAlignment="Top" Width="95" Click="New_Game_Click"/>
+        <Grid x:Name="buttonGrid" HorizontalAlignment="Left" Height="350" Margin="4,48,0,0" VerticalAlignment="Top" Width="350" Grid.ColumnSpan="2" Grid.Column="2"/>
+        <Button x:Name="Restart_Game" Content="Заново" Grid.Column="2" HorizontalAlignment="Left" Height="35" Margin="4,421,0,0" VerticalAlignment="Top" Width="98" Click="Restart_Game_Click" BorderBrush="{x:Null}" UseLayoutRounding="False">
+            <Button.Background>
+                <ImageBrush ImageSource="pngwing.com.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="New_Game" Content="Нова гра" Grid.Column="3" HorizontalAlignment="Left" Height="35" Margin="148,421,0,0" VerticalAlignment="Top" Width="95" Click="New_Game_Click" BorderBrush="{x:Null}">
+            <Button.Background>
+                <ImageBrush ImageSource="pngwing.com.png"/>
+            </Button.Background>
+        </Button>
         <Label x:Name="label1" Content="Label" Grid.Column="3" HorizontalAlignment="Left" Margin="29,426,0,0" VerticalAlignment="Top" Width="83" Height="26"/>
-        <Grid x:Name="TopGrid" Grid.ColumnSpan="5" Height="43" VerticalAlignment="Top" Width="471.519" SizeChanged="TopGrid_SizeChanged">
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="1"/>
-                    <GradientStop Color="White"/>
-                </LinearGradientBrush>
-            </Grid.Background>
+        <Button Grid.ColumnSpan="2" Content="Button" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="54" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Button.Background>
+                <ImageBrush ImageSource="Шестерня2.png" Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+        <Ellipse Grid.Column="3" HorizontalAlignment="Left" Height="43" Margin="250,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="43" Grid.ColumnSpan="2">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="moon.com.png" Stretch="Uniform"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Button x:Name="SelectDifficulty" Grid.ColumnSpan="2" Content="Рівень" Grid.Column="3" HorizontalAlignment="Left" Height="33" Margin="250,431,0,0" VerticalAlignment="Top" Width="43" RenderTransformOrigin="0.52,-0.009" FontSize="10" BorderBrush="{x:Null}" Click="SelectDifficulty_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="pngwing.com.png" Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+        <Grid x:Name="TopGrid" Grid.ColumnSpan="2" Height="43" VerticalAlignment="Top" SizeChanged="TopGrid_SizeChanged" Grid.Column="2" Margin="3,0,4,0" Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="52*"/>
+                <ColumnDefinition Width="21*"/>
+            </Grid.ColumnDefinitions>
             <Grid.Style>
                 <Style TargetType="{x:Type Grid}">
                     <Style.Triggers>
@@ -41,7 +66,7 @@
                             <EventTrigger.Actions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation SpeedRatio="5" Duration="0:0:0:1" Storyboard.TargetProperty="Height" To="471.519"></DoubleAnimation>
+                                        <DoubleAnimation SpeedRatio="3" Duration="0:0:0:1" Storyboard.TargetProperty="Height" To="471.519"></DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger.Actions>
@@ -50,7 +75,7 @@
                             <EventTrigger.Actions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation SpeedRatio="5" Duration="0:0:0:1" Storyboard.TargetProperty="Height" To="43"></DoubleAnimation>
+                                        <DoubleAnimation SpeedRatio="3" Duration="0:0:0:1" Storyboard.TargetProperty="Height" To="43"></DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger.Actions>
@@ -58,7 +83,7 @@
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
-            <TextBox x:Name="TopForm" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="^" VerticalAlignment="Top" Width="54" TextAlignment="Center" FontSize="17" IsReadOnly="True" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Background="{x:Null}" Foreground="Red" Margin="199,-1,0,0" IsEnabled="False" RenderTransformOrigin="0.5,0.5">
+            <TextBox x:Name="TopForm" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="^" VerticalAlignment="Top" Width="54" TextAlignment="Center" FontSize="17" IsReadOnly="True" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Background="{x:Null}" Foreground="#FFFFE800" Margin="155,0,0,0" IsEnabled="False" RenderTransformOrigin="0.5,0.5">
                 <TextBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -68,7 +93,49 @@
                     </TransformGroup>
                 </TextBox.RenderTransform>
             </TextBox>
-            <Label x:Name="TopLabel" Content="Рейтинг" HorizontalAlignment="Left" Margin="189,31,0,-10" VerticalAlignment="Top" FontSize="18"/>
+            <Label x:Name="TopLabel" HorizontalAlignment="Center" Margin="45,34,56,-50" VerticalAlignment="Top" FontSize="25" Foreground="White" Grid.ColumnSpan="2" Height="59" Width="264" Content="Найкращі результати"/>
+            <Ellipse x:Name="star1" HorizontalAlignment="Left" Margin="82,381,0,-414" VerticalAlignment="Top" Width="75" Height="76" RenderTransformOrigin="0.513,0.36">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="star1.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Ellipse x:Name="star2" HorizontalAlignment="Left" Margin="82,320,0,-352" VerticalAlignment="Top" Width="75" Height="75">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="star2.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Ellipse x:Name="star3" HorizontalAlignment="Left" Margin="82,258,0,-290" VerticalAlignment="Top" Width="75" Height="75">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="star3.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Ellipse x:Name="star4" HorizontalAlignment="Left" Margin="82,197,0,-229" VerticalAlignment="Top" Width="75" Height="75">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="star4.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Ellipse x:Name="star5" HorizontalAlignment="Left" Margin="82,133,0,-165" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.929,3.757" Height="75">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="star5.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Ellipse x:Name="star6" HorizontalAlignment="Left" Margin="82,74,0,-106" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.929,3.757" Height="75">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="star6.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Label x:Name="Dif1" Content="5" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="110,404,0,-395" Foreground="Black"/>
+            <Label x:Name="Dif2" Content="7" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="110,344,0,-331" Foreground="Black"/>
+            <Label x:Name="Dif3" Content="10" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="104,281,0,-268" Foreground="Black"/>
+            <Label x:Name="Dif4" Content="12" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="104,221,0,-208" Foreground="Black"/>
+            <Label x:Name="Dif5" Content="15" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="104,156,0,-143" Foreground="Black" RenderTransformOrigin="0.586,0.2"/>
+            <Label x:Name="Dif6" Content="20" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="104,99,0,-86" Foreground="Black" RenderTransformOrigin="0.638,-2.933"/>
+            <Label x:Name="Result1" Content="00:00:00:00" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="180,404,0,-395" Foreground="White" RenderTransformOrigin="3.175,0.441" Grid.ColumnSpan="2" Width="101" Background="{x:Null}"/>
+            <Label x:Name="Result2" Content="00:00:00:00" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="180,344,0,-335" Foreground="White" RenderTransformOrigin="3.175,0.441" Grid.ColumnSpan="2" Width="101" Background="{x:Null}"/>
+            <Label x:Name="Result3" Content="00:00:00:00" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="180,281,0,-272" Foreground="White" RenderTransformOrigin="3.175,0.441" Grid.ColumnSpan="2" Width="101" Background="{x:Null}"/>
+            <Label x:Name="Result4" Content="00:00:00:00" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="180,221,0,-212" Foreground="White" RenderTransformOrigin="3.175,0.441" Grid.ColumnSpan="2" Width="101" Background="{x:Null}"/>
+            <Label x:Name="Result5" Content="00:00:00:00" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="180,162,0,-153" Foreground="White" RenderTransformOrigin="3.175,0.441" Grid.ColumnSpan="2" Width="101" Background="{x:Null}"/>
+            <Label x:Name="Result6" Content="00:00:00:00" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="180,99,0,-90" Foreground="White" RenderTransformOrigin="3.175,0.441" Grid.ColumnSpan="2" Width="101" Background="{x:Null}"/>
         </Grid>
     </Grid>
 </Window>

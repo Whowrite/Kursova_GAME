@@ -59,6 +59,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,6 +74,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -97,6 +104,48 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Шестерня.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons8-шестерня-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Шестерня2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cloud.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cloud2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pngwing.com.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="moon.com.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="star1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="star2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="star3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="star4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="star5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="star6.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
