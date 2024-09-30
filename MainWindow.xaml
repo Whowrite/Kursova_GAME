@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kursova_GAME"
         mc:Ignorable="d"
-        Title="MainWindow" Height="508.456" Width="475.332" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Focusable="False" Background="White" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="Нурікабе" Height="508.456" Width="475.332" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Focusable="False" Background="White" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Window.Resources>
 
     </Window.Resources>
@@ -39,7 +39,7 @@
             </Button.Background>
         </Button>
         <Label x:Name="label1" Content="Label" Grid.Column="3" HorizontalAlignment="Left" Margin="29,426,0,0" VerticalAlignment="Top" Width="83" Height="26"/>
-        <Button Grid.ColumnSpan="2" Content="Button" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="54" BorderBrush="{x:Null}" Foreground="{x:Null}">
+        <Button x:Name="Settings" Grid.ColumnSpan="2" Content="Button" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="54" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Settings_Click">
             <Button.Background>
                 <ImageBrush ImageSource="Шестерня2.png" Stretch="Uniform"/>
             </Button.Background>
@@ -136,6 +136,12 @@
             <Label x:Name="Result4" Content="00:00:00:00" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="180,221,0,-212" Foreground="White" RenderTransformOrigin="3.175,0.441" Grid.ColumnSpan="2" Width="101" Background="{x:Null}"/>
             <Label x:Name="Result5" Content="00:00:00:00" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="180,162,0,-153" Foreground="White" RenderTransformOrigin="3.175,0.441" Grid.ColumnSpan="2" Width="101" Background="{x:Null}"/>
             <Label x:Name="Result6" Content="00:00:00:00" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="180,99,0,-90" Foreground="White" RenderTransformOrigin="3.175,0.441" Grid.ColumnSpan="2" Width="101" Background="{x:Null}"/>
+        </Grid>
+        <Grid x:Name="Time_Pause" Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="Left" Height="350" Margin="4,48,0,0" VerticalAlignment="Top" Width="352" Visibility="Hidden">
+            <Grid.Background>
+                <SolidColorBrush Color="#FFD49595" Opacity="0.5"/>
+            </Grid.Background>
+            <Label x:Name="Time_paused" Content="  Time&#xD;&#xA;paused!" HorizontalAlignment="Left" Margin="63,113,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.763,0.692" FontSize="37" FontFamily="Vineta BT" Width="230" Height="140"/>
         </Grid>
     </Grid>
 </Window>

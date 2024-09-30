@@ -18,11 +18,13 @@ namespace Kursova_GAME
         DateTime date = new DateTime();
         DispatcherTimer timer = new DispatcherTimer();
         int Difficulty = 0;
+        bool ShowError2x2 = false;
 
         int size = 5;
         List<List<char>> userGrid = new List<List<char>>();
         List<List<int>> solution = new List<List<int>>();
         List<List<int>> numbers = new List<List<int>>();
+
         List<TimeSpan> times = new List<TimeSpan>();
 
         public MainWindow()
@@ -204,11 +206,13 @@ namespace Kursova_GAME
         private void SelectDifficulty_Click(object sender, RoutedEventArgs e)
         {
             timer.Stop();
+            Time_Pause.Visibility = Visibility.Visible;
             Window1 window1 = new Window1();
             window1.Left = this.Left + this.Width - 18;
             window1.Top = this.Top;
             window1.ShowDialog();
             timer.Start();
+            Time_Pause.Visibility = Visibility.Hidden;
             Difficulty = window1.difficulty;
             bool rez = false;
             while (rez == false)
@@ -335,6 +339,7 @@ namespace Kursova_GAME
                 clickedButton.Background = Brushes.Black;
                 clickedButton.Content = ' ';
                 userGrid[row][column] = '#';
+                if(ShowError2x2) Search2x2Blocks();
             }
             else
             {
@@ -525,5 +530,92 @@ namespace Kursova_GAME
         {
             WriteToFile("TopResults.txt");
         }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
+            Time_Pause.Visibility = Visibility.Visible;
+            Settings settings = new Settings();
+            if (ShowError2x2) settings.Wrong_2x2_Box.IsChecked = true;
+            settings.Left = this.Left - this.Width + 127;
+            settings.Top = this.Top;
+            settings.ShowDialog();
+            if (settings.Wrong_2x2_Box.IsChecked == true)
+            {
+                ShowError2x2 = true;
+                Search2x2Blocks();
+            }
+            else ShowError2x2 = false;
+            timer.Start();
+            Time_Pause.Visibility = Visibility.Hidden;
+        }
+
+        public void Search2x2Blocks()
+        {
+            for (int row = 0; row < rows - 1; row++)
+            {
+                for (int col = 0; col < cols - 1; col++)
+                {
+                    if (userGrid[row][col] == '#')
+                    {
+                        if (IsIsolated(row, col))
+                            bt[row, col].Background = Brushes.Red;
+                        if (IsTwoByTwoGroup(row, col))
+                        {
+                            bt[row, col].Background = Brushes.Red;
+                            bt[row + 1, col].Background = Brushes.Red;
+                            bt[row, col + 1].Background = Brushes.Red;
+                            bt[row + 1, col + 1].Background = Brushes.Red;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Функція для перевірки ізольованої чорної клітинки
+        private bool IsIsolated(int row, int col)
+        {
+            // Перевіряємо чотири сторони навколо клітини (верх, низ, ліворуч, праворуч)
+            int[][] directions = new int[][]
+            {
+        new int[] {-1, 0}, // верх
+        new int[] {1, 0},  // низ
+        new int[] {0, -1}, // ліворуч
+        new int[] {0, 1}   // праворуч
+            };
+
+            foreach (var dir in directions)
+            {
+                int newRow = row + dir[0];
+                int newCol = col + dir[1];
+
+                if (IsValidCell(newRow, newCol) && userGrid[newRow][newCol] == '#')
+                {
+                    return false; // Якщо є сусідня чорна клітинка, то не ізольована
+                }
+            }
+            return true; // Якщо немає сусідів чорних клітин, то клітинка ізольована
+        }
+
+        // Функція для перевірки, чи є біла клітинка частиною 2x2 групи
+        private bool IsTwoByTwoGroup(int row, int col)
+        {
+            if (IsValidCell(row + 1, col) && IsValidCell(row, col + 1) && IsValidCell(row + 1, col + 1))
+            {
+                return userGrid[row][col] == '#' &&
+                       userGrid[row + 1][col] == '#' &&
+                       userGrid[row][col + 1] == '#' &&
+                       userGrid[row + 1][col + 1] == '#';
+            }
+            return false;
+        }
+
+        // Функція для перевірки, чи є клітина дійсною в межах сітки
+        private bool IsValidCell(int row, int col)
+        {
+            return row >= 0 && row < rows && col >= 0 && col < cols;
+        }
+
+
     }
 }
