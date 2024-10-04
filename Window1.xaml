@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Kursova_GAME"
         mc:Ignorable="d"
         Title="Складність" Height="508.456" Width="361.416" ResizeMode="NoResize">
-    <Grid>
+    <Grid x:Name="TopGrid">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black" Offset="0.138"/>

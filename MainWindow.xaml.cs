@@ -18,7 +18,13 @@ namespace Kursova_GAME
         DateTime date = new DateTime();
         DispatcherTimer timer = new DispatcherTimer();
         int Difficulty = 0;
+
         bool ShowError2x2 = false;
+        bool NightTema = true;
+        bool ShowTimer = false;
+        bool ResolvedNumbers = false;
+        bool WrongNumbers = false;
+        bool WrongNumbersColor = false;
 
         int size = 5;
         List<List<char>> userGrid = new List<List<char>>();
@@ -56,7 +62,7 @@ namespace Kursova_GAME
             new List<int> { 1, 0, 0, 0, 1 }
         };
 
-            // Ініціалізація userGrid
+            //Ініціалізація userGrid
             for (int i = 0; i < size; i++)
             {
                 userGrid.Add(new List<char>());
@@ -167,6 +173,11 @@ namespace Kursova_GAME
             {
                 for (int j = 0; j < cols; j++)
                 {
+                    if (userGrid[i][j] == '*' && solution[i][j] == 0)
+                    {
+                        return false;
+                    }
+                    
                     if (userGrid[i][j] == '#' && solution[i][j] != 0)
                     {
                         return false; // Є невірно розміщена чорна клітинка
@@ -208,6 +219,31 @@ namespace Kursova_GAME
             timer.Stop();
             Time_Pause.Visibility = Visibility.Visible;
             Window1 window1 = new Window1();
+
+            LinearGradientBrush linearGradientBrush = new LinearGradientBrush();
+
+            linearGradientBrush.StartPoint = new Point(0.5, 0);
+            linearGradientBrush.EndPoint = new Point(0.5, 1);
+
+            if (NightTema)
+            {
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Colors.Black, 0.138));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(14, 34, 46), 0.389));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(127, 207, 253), 0.916));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(33, 90, 124), 0.569));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(53, 124, 168), 0.682));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(75, 161, 212), 0.799));
+
+            }
+            else
+            {
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(127, 207, 253), 0.628)); // #FF7FCFFD
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(33, 90, 124), 0.176));   // #FF215A7C
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(53, 124, 168), 0.31));   // #FF357CA8
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(75, 161, 212), 0.444));  // #FF4BA1D4
+            }
+            window1.TopGrid.Background = linearGradientBrush;
+
             window1.Left = this.Left + this.Width - 18;
             window1.Top = this.Top;
             window1.ShowDialog();
@@ -339,7 +375,10 @@ namespace Kursova_GAME
                 clickedButton.Background = Brushes.Black;
                 clickedButton.Content = ' ';
                 userGrid[row][column] = '#';
-                if(ShowError2x2) Search2x2Blocks();
+                Brush brush;
+                if (WrongNumbersColor) brush = Brushes.Blue;
+                else brush = Brushes.Red;
+                if (ShowError2x2) Search2x2Blocks(brush);
             }
             else
             {
@@ -421,13 +460,23 @@ namespace Kursova_GAME
                 linearGradientBrush.StartPoint = new Point(0.5, 0);
                 linearGradientBrush.EndPoint = new Point(0.5, 1);
 
-                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Colors.Black, 0.138));
-                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(14, 34, 46), 0.389));
-                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(127, 207, 253), 0.916));
-                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(33, 90, 124), 0.569));
-                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(53, 124, 168), 0.682));
-                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(75, 161, 212), 0.799));
+                if (NightTema)
+                {
+                    linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Colors.Black, 0.138));
+                    linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(14, 34, 46), 0.389));
+                    linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(127, 207, 253), 0.916));
+                    linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(33, 90, 124), 0.569));
+                    linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(53, 124, 168), 0.682));
+                    linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(75, 161, 212), 0.799));
 
+                }
+                else
+                {
+                    linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(127, 207, 253), 0.628)); // #FF7FCFFD
+                    linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(33, 90, 124), 0.176));   // #FF215A7C
+                    linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(53, 124, 168), 0.31));   // #FF357CA8
+                    linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(75, 161, 212), 0.444));  // #FF4BA1D4
+                }
                 TopGrid.Background = linearGradientBrush;
 
             }
@@ -453,7 +502,13 @@ namespace Kursova_GAME
                 Result5.Visibility = Visibility.Hidden;
                 Result6.Visibility = Visibility.Hidden;
                 TopForm.LayoutTransform = new RotateTransform(180);
-                TopGrid.Background = Brushes.Black;
+
+                if (NightTema) TopGrid.Background = Brushes.Black;
+                else
+                {
+                    Color col = Color.FromRgb(33, 90, 124);
+                    TopGrid.Background = new SolidColorBrush(col);
+                }
             }
         }
 
@@ -536,21 +591,119 @@ namespace Kursova_GAME
             timer.Stop();
             Time_Pause.Visibility = Visibility.Visible;
             Settings settings = new Settings();
+
             if (ShowError2x2) settings.Wrong_2x2_Box.IsChecked = true;
+            if (!NightTema) settings.night_Box.IsChecked = false;
+            if (ShowTimer) settings.Timer_Box.IsChecked = true;
+            if (ResolvedNumbers) settings.Numbers_Box.IsChecked = true;
+            if (WrongNumbers) settings.WrongNumbers_Box.IsChecked = true;
+            if (WrongNumbersColor) settings.WrongBlue_Box.IsChecked = true;
+
+            LinearGradientBrush linearGradientBrush = new LinearGradientBrush();
+
+            linearGradientBrush.StartPoint = new Point(0.5, 0);
+            linearGradientBrush.EndPoint = new Point(0.5, 1);
+
+            if (NightTema)
+            {
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Colors.Black, 0.138));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(14, 34, 46), 0.389));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(127, 207, 253), 0.916));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(33, 90, 124), 0.569));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(53, 124, 168), 0.682));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(75, 161, 212), 0.799));
+                settings.TopGrid.Background = linearGradientBrush;
+
+            }
+            else
+            {
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(127, 207, 253), 0.628)); // #FF7FCFFD
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(33, 90, 124), 0.176));   // #FF215A7C
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(53, 124, 168), 0.31));   // #FF357CA8
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(75, 161, 212), 0.444));  // #FF4BA1D4
+            }
+            settings.TopGrid.Background = linearGradientBrush;
+
             settings.Left = this.Left - this.Width + 127;
             settings.Top = this.Top;
             settings.ShowDialog();
+
             if (settings.Wrong_2x2_Box.IsChecked == true)
             {
+                Brush brush;
+                if (WrongNumbersColor) brush = Brushes.Blue;
+                else brush = Brushes.Red;
                 ShowError2x2 = true;
-                Search2x2Blocks();
+                Search2x2Blocks(brush);
+            } //Ok
+            else
+            {
+                ShowError2x2 = false;
+                for (int i = 0; i < rows; i++)
+                    for (int j = 0; j < cols; j++)
+                        if (bt[i, j].Background == Brushes.Red) bt[i, j].Background = Brushes.Black;
             }
-            else ShowError2x2 = false;
+            if (settings.Timer_Box.IsChecked == true)
+            {
+                ShowTimer = true;
+                label1.Visibility = Visibility.Hidden;
+            } //Ok
+            else
+            {
+                ShowTimer = false;
+                label1.Visibility = Visibility.Visible;
+            }
+            if (settings.night_Box.IsChecked == true)
+            {
+                NightTema = true;
+                TopGrid.Background = Brushes.Black;
+
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Colors.Black, 0.138));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(14, 34, 46), 0.389));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(127, 207, 253), 0.916));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(33, 90, 124), 0.569));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(53, 124, 168), 0.682));
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(75, 161, 212), 0.799));
+
+                this.Grid1.Background = linearGradientBrush;
+            } //Ok
+            else
+            {
+                NightTema = false;
+                Color col = Color.FromRgb(33, 90, 124);
+                TopGrid.Background = new SolidColorBrush(col);
+
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(127, 207, 253), 0.628)); // #FF7FCFFD
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(33, 90, 124), 0.176));   // #FF215A7C
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(53, 124, 168), 0.31));   // #FF357CA8
+                linearGradientBrush.GradientStops.Add(new GradientStop(System.Windows.Media.Color.FromRgb(75, 161, 212), 0.444));  // #FF4BA1D4
+
+                this.Grid1.Background = linearGradientBrush;
+            }
+            if (settings.Numbers_Box.IsChecked == true)
+            {
+                ResolvedNumbers = true;
+            }
+            else
+            {
+                ResolvedNumbers = false;
+            }
+            if (settings.WrongNumbers_Box.IsChecked == true)
+            {
+                WrongNumbers = true;
+            }
+            else
+            {
+                WrongNumbers = false;
+            }
+            if (settings.WrongBlue_Box.IsChecked == true) WrongNumbersColor = true; //Ok
+            else WrongNumbersColor = false;
+
             timer.Start();
             Time_Pause.Visibility = Visibility.Hidden;
         }
 
-        public void Search2x2Blocks()
+        public void Search2x2Blocks(Brush brush)
         {
             for (int row = 0; row < rows - 1; row++)
             {
@@ -559,13 +712,13 @@ namespace Kursova_GAME
                     if (userGrid[row][col] == '#')
                     {
                         if (IsIsolated(row, col))
-                            bt[row, col].Background = Brushes.Red;
+                            bt[row, col].Background = brush;
                         if (IsTwoByTwoGroup(row, col))
                         {
-                            bt[row, col].Background = Brushes.Red;
-                            bt[row + 1, col].Background = Brushes.Red;
-                            bt[row, col + 1].Background = Brushes.Red;
-                            bt[row + 1, col + 1].Background = Brushes.Red;
+                            bt[row, col].Background = brush;
+                            bt[row + 1, col].Background = brush;
+                            bt[row, col + 1].Background = brush;
+                            bt[row + 1, col + 1].Background = brush;
                         }
                     }
                 }
@@ -615,7 +768,5 @@ namespace Kursova_GAME
         {
             return row >= 0 && row < rows && col >= 0 && col < cols;
         }
-
-
     }
 }
