@@ -24,11 +24,11 @@
         <Label Content="Скрити таймер
                " HorizontalAlignment="Left" Margin="86,124,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
         <CheckBox x:Name="Numbers_Box" HorizontalAlignment="Left" Margin="67,173,0,0" VerticalAlignment="Top"/>
-        <Label Content="Прибрати цифри що завершені" HorizontalAlignment="Left" Margin="86,166,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
+        <Label Content="Виділити правильні поля" HorizontalAlignment="Left" Margin="86,166,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
         <CheckBox x:Name="Wrong_2x2_Box" HorizontalAlignment="Left" Margin="67,215,0,0" VerticalAlignment="Top"/>
         <Label Content="Виділити хибні області 2х2" HorizontalAlignment="Left" Margin="86,208,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
         <CheckBox x:Name="WrongNumbers_Box" HorizontalAlignment="Left" Margin="67,255,0,0" VerticalAlignment="Top"/>
-        <Label Content="Виділити хибні цифри" HorizontalAlignment="Left" Margin="86,248,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
+        <Label Content="Виділити хибні поля" HorizontalAlignment="Left" Margin="86,248,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
         <CheckBox x:Name="WrongBlue_Box" HorizontalAlignment="Left" Margin="67,294,0,0" VerticalAlignment="Top"/>
         <Label Content="Виділяти помилки блакитним" HorizontalAlignment="Left" Margin="86,287,0,0" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
     </Grid>

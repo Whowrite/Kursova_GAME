@@ -6,6 +6,26 @@
         xmlns:local="clr-namespace:Kursova_GAME"
         mc:Ignorable="d"
         Title="Нурікабе" Height="508.456" Width="475.332" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Focusable="False" Background="White" ResizeMode="CanMinimize" Closing="Window_Closing">
+    <Window.Resources>
+        <!-- Стиль для кнопки без виділення -->
+        <Style TargetType="Button">
+            <!-- Відключаємо виділення при фокусі -->
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <!-- Відключаємо бордер при наведенні -->
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid x:Name="Grid1" Margin="0,0,0,-1">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -139,6 +159,12 @@
                 <SolidColorBrush Color="#FFD49595" Opacity="0.5"/>
             </Grid.Background>
             <Label x:Name="Time_paused" Content="  Time&#xD;&#xA;paused!" HorizontalAlignment="Left" Margin="63,113,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.763,0.692" FontSize="37" FontFamily="Vineta BT" Width="230" Height="140"/>
+        </Grid>
+        <Grid x:Name="NewGame_Pause" Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="Left" Height="350" Margin="4,48,0,0" VerticalAlignment="Top" Width="352" Visibility="Hidden">
+            <Grid.Background>
+                <SolidColorBrush Color="#FFD49595" Opacity="0.5"/>
+            </Grid.Background>
+            <Label x:Name="Time_paused1" Content="  Press&#xA;  retry&#xD;&#xA; or new &#xD;&#xA; game!" HorizontalAlignment="Left" Margin="63,70,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.763,0.692" FontSize="37" FontFamily="Vineta BT" Width="230" Height="216"/>
         </Grid>
     </Grid>
 </Window>

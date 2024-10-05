@@ -104,9 +104,7 @@ namespace Kursova_GAME
             {
                 buttonGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             }
-            // Ініціалізуємо кнопки залежно від рівня складності
             bt = new Button[rows, cols];
-            // Розраховуємо динамічний розмір кнопок залежно від кількості рядків і стовпців
             double baseFontSize = 52; // Базовий розмір шрифту
             double buttonFontSize = baseFontSize * (5.0 / Math.Max(rows, cols)); // Зменшуємо розмір шрифту при збільшенні кількості кнопок
 
@@ -116,7 +114,7 @@ namespace Kursova_GAME
                 {
                     bt[i, j] = new Button();
                     bt[i, j].Background = Brushes.LightGray;
-                    bt[i, j].FontSize = buttonFontSize; // Встановлюємо розмір шрифту
+                    bt[i, j].FontSize = buttonFontSize;
                     bt[i, j].Click += bt_Click;
                     bt[i, j].BorderBrush = Brushes.Black;
                     bt[i, j].MouseRightButtonDown += bt_RightClick;
@@ -127,6 +125,7 @@ namespace Kursova_GAME
                     {
                         bt[i, j].Content = numbers[i][j];
                         bt[i, j].IsEnabled = false;
+                        bt[i, j].Background = Brushes.White;
                     }
 
                     Grid.SetRow(bt[i, j], i);
@@ -134,7 +133,6 @@ namespace Kursova_GAME
                     buttonGrid.Children.Add(bt[i, j]);
                 }
             }
-            // Оновлюємо користувацьку сітку для нового розміру
             userGrid = new List<List<char>>();
             for (int i = 0; i < rows; i++)
             {
@@ -165,6 +163,7 @@ namespace Kursova_GAME
             CreateGrid();
             date = DateTime.Now;
             timer.Start();
+            NewGame_Pause.Visibility = Visibility.Hidden;
         }
 
         private bool CheckSolution()
@@ -177,7 +176,7 @@ namespace Kursova_GAME
                     {
                         return false;
                     }
-                    
+
                     if (userGrid[i][j] == '#' && solution[i][j] != 0)
                     {
                         return false; // Є невірно розміщена чорна клітинка
@@ -213,6 +212,7 @@ namespace Kursova_GAME
                 }
             date = DateTime.Now;
             timer.Start();
+            NewGame_Pause.Visibility = Visibility.Hidden;
         }
         private void SelectDifficulty_Click(object sender, RoutedEventArgs e)
         {
@@ -370,7 +370,14 @@ namespace Kursova_GAME
             Button clickedButton = sender as Button;
             int row = Grid.GetRow(clickedButton);    // Рядок, на якому знаходиться кнопка
             int column = Grid.GetColumn(clickedButton);  // Стовпець, на якому знаходиться кнопка
-            if (clickedButton.Background != Brushes.Black)
+            if (clickedButton.Background == Brushes.Black || clickedButton.Background == Brushes.LightGreen || clickedButton.Background == Brushes.MediumVioletRed
+                || clickedButton.Background == Brushes.White || clickedButton.Background == Brushes.Red || clickedButton.Background == Brushes.Blue)
+            {
+                clickedButton.Background = Brushes.LightGray;
+                clickedButton.Content = ' ';
+                userGrid[row][column] = '-';
+            }
+            else if (clickedButton.Background != Brushes.Black)
             {
                 clickedButton.Background = Brushes.Black;
                 clickedButton.Content = ' ';
@@ -380,16 +387,12 @@ namespace Kursova_GAME
                 else brush = Brushes.Red;
                 if (ShowError2x2) Search2x2Blocks(brush);
             }
-            else
-            {
-                clickedButton.Background = Brushes.LightGray;
-                clickedButton.Content = ' ';
-                userGrid[row][column] = '-';
-            }
+            
             if (CheckSolution())
             {
                 MessageBox.Show("Ви успішно вирішили гру Nurikabe! Вітаємо!");
                 buttonGrid.IsEnabled = false;
+                NewGame_Pause.Visibility = Visibility.Visible;
                 MessageBox.Show("Гра завершена.");
             }
         }
@@ -399,22 +402,26 @@ namespace Kursova_GAME
             Button clickedButton = sender as Button;
             int row = Grid.GetRow(clickedButton);    // Рядок, на якому знаходиться кнопка
             int column = Grid.GetColumn(clickedButton);  // Стовпець, на якому знаходиться кнопка
-            if (clickedButton.Background != Brushes.White)
-            {
-                clickedButton.Background = Brushes.White;
-                clickedButton.Content = '*';
-                userGrid[row][column] = '*';
-            }
-            else
+            if (clickedButton.Background == Brushes.LightGreen || clickedButton.Background == Brushes.MediumVioletRed 
+                || clickedButton.Background == Brushes.White || clickedButton.Background == Brushes.Blue)
             {
                 clickedButton.Background = Brushes.LightGray;
                 clickedButton.Content = ' ';
                 userGrid[row][column] = '-';
             }
+            else if (clickedButton.Background != Brushes.White)
+            {
+                clickedButton.Background = Brushes.White;
+                clickedButton.Content = '*';
+                userGrid[row][column] = '*';
+                if (ResolvedNumbers) if (userGrid[row][column] == '*' && solution[row][column] == 1) bt[row, column].Background = Brushes.LightGreen;
+                if (WrongNumbers) if (userGrid[row][column] == '*' && solution[row][column] != 1) bt[row, column].Background = Brushes.MediumVioletRed;
+            }
             if (CheckSolution())
             {
                 MessageBox.Show("Ви успішно вирішили гру Nurikabe! Вітаємо!");
                 buttonGrid.IsEnabled = false;
+                NewGame_Pause.Visibility = Visibility.Visible;
                 MessageBox.Show("Гра завершена.");
             }
         }
@@ -422,7 +429,7 @@ namespace Kursova_GAME
         {
             Button hoveredButton = sender as Button;
             hoveredButton.BorderBrush = Brushes.Red;
-            hoveredButton.BorderThickness = new Thickness(3); // Товщина краю
+            hoveredButton.BorderThickness = new Thickness(5); // Товщина краю
         }
         void OnMouseLeaveHandler(object sender, MouseEventArgs e)
         {
@@ -683,7 +690,7 @@ namespace Kursova_GAME
             if (settings.Numbers_Box.IsChecked == true)
             {
                 ResolvedNumbers = true;
-            }
+            } //Ok
             else
             {
                 ResolvedNumbers = false;
@@ -691,7 +698,7 @@ namespace Kursova_GAME
             if (settings.WrongNumbers_Box.IsChecked == true)
             {
                 WrongNumbers = true;
-            }
+            } //Ok
             else
             {
                 WrongNumbers = false;
@@ -768,5 +775,6 @@ namespace Kursova_GAME
         {
             return row >= 0 && row < rows && col >= 0 && col < cols;
         }
+
     }
 }
